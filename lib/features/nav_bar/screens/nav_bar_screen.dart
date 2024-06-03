@@ -16,21 +16,26 @@ class NavBarScreen extends StatelessWidget {
           index: homeController.visit.value,
           children: homeController.pages,
         ),
-        floatingActionButton: Container(
-          height: 56,
-          width: 56,
-          alignment: Alignment.center,
-          decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(colors: [
-                AppColors.primaryColor,
-                AppColors.secondaryColor,
-              ], begin: Alignment.centerLeft, end: Alignment.centerRight)),
-          child: const Icon(
-            FeatherIcons.search,
-            color: Colors.white,
-          ),
-        ),
+        floatingActionButton: MediaQuery.of(context).viewInsets.bottom == 0
+            ? Container(
+                height: 56,
+                width: 56,
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                        colors: [
+                          AppColors.primaryColor,
+                          AppColors.secondaryColor,
+                        ],
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight)),
+                child: const Icon(
+                  FeatherIcons.search,
+                  color: Colors.white,
+                ),
+              )
+            : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: AnimatedBottomNavigationBar.builder(
           itemCount: homeController.items.length,
