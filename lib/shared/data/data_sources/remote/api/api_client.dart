@@ -1,34 +1,47 @@
 part of 'remote_imports.dart';
 
-class ApiClient extends CacheManager {
+class ApiClient {
   late BaseOptions baseOptions;
   late Dio dio;
   Options options = Options();
 
   ApiClient() {
-    baseOptions = BaseOptions(baseUrl: ApiConstant.baseUrl);
+    baseOptions = BaseOptions(baseUrl: ApiEndpointUrl.baseUrl);
     dio = Dio(baseOptions);
-    options =
-        Options(headers: {'Authorization': 'Bearer ${ApiConstant.apiKey}'});
+    options = Options(headers: {'Content-Type': 'application/json'});
   }
 
-  Future<Response> getRequest({required String path}) async {
+  Future<void> setToken() async {
+    final userDataString =
+        await LocalStorage.getData(key: LoacalStorageKey.loginKey);
+    final LoginModel model = loginModelFromJson(userDataString);
+    options = Options(headers: {'Authorization': 'Bearer ${model.token}'});
+  }
+
+  Future<Response> getRequest(
+      {required String path,
+      Map<String, dynamic>? params,
+      Map<String, dynamic>? header,
+      bool isTokenRequired = false}) async {
+    if (header != null) {
+      options = Options(headers: header);
+    }
+    if (isTokenRequired) {
+      await setToken();
+    }
     final online = await CennectivityService.instance.isOnline();
     if (online == false) {
-      try {
-        return tryGetCachedResponse(path: path);
-      } catch (error) {
-        throw ApiException(message: error.toString());
-      }
+      throw ApiException(message: 'No internet connection');
     } else {
       try {
-        final Response response = await dio.get(path, options: options);
-        await cacheResponse(path: path, response: response);
+        final Response response =
+            await dio.get(path, queryParameters: params, options: options);
         logResponse(response);
         return response;
       } on DioException catch (e) {
         if (e.response != null) {
-          throw ApiException(message: e.response?.statusMessage);
+          throw ApiException(
+              message: e.response?.data['message'] ?? 'Invalid Data');
         } else {
           throw ApiException(message: e.message);
         }
@@ -39,23 +52,31 @@ class ApiClient extends CacheManager {
   }
 
   Future<Response> postRequest(
-      {required String path, Map<String, dynamic>? body}) async {
+      {required String path,
+      Map<String, dynamic>? body,
+      Map<String, dynamic>? params,
+      Map<String, dynamic>? header,
+      bool isTokenRequired = false}) async {
+    if (header != null) {
+      options = Options(headers: header);
+    }
+    if (isTokenRequired) {
+      await setToken();
+    }
     final online = await CennectivityService.instance.isOnline();
     if (online == false) {
-      try {
-        return tryGetCachedResponse(path: path);
-      } catch (error) {
-        throw ApiException(message: error.toString());
-      }
+      throw ApiException(message: 'No internet connection');
     } else {
       try {
-        Response response = await dio.post(path, data: body, options: options);
-        await cacheResponse(path: path, response: response);
+        Response response = await dio.post(path,
+            options: options, queryParameters: params, data: body);
         logResponse(response);
         return response;
       } on DioException catch (e) {
         if (e.response != null) {
-          throw ApiException(message: e.response?.statusMessage);
+          logResponse(e.response!);
+          throw ApiException(
+              message: e.response?.data['message'] ?? 'Invalid Data');
         } else {
           throw ApiException(message: e.message);
         }
@@ -66,7 +87,6 @@ class ApiClient extends CacheManager {
   void logResponse(Response response) {
     debugPrint('URL         : ${response.requestOptions.uri}');
     debugPrint('STATUS CODE : ${response.statusCode}');
-    debugPrint(
-        'RESPONSE    : ${response.data.toString().substring(0, 500)}\n\n');
+    debugPrint('RESPONSE    : ${response.data}\n\n');
   }
 }
