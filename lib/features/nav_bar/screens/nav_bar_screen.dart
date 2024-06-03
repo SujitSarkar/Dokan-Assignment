@@ -3,10 +3,6 @@ import 'package:feather_icons/feather_icons.dart';
 import '/core/constants/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../account/data/account_service.dart';
-import '../../account/presentation/controllers/account_controller.dart';
-import '../../home/data/home_service.dart';
-import '../../home/presentation/controllers/home_controller.dart';
 import '../controllers/nav_bar_controller.dart';
 
 class NavBarScreen extends StatelessWidget {
@@ -14,9 +10,6 @@ class NavBarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController(HomeService()));
-    Get.put(AccountController(AccountService()));
-
     final NavBarController homeController = Get.put(NavBarController());
     return Obx(() => Scaffold(
         body: IndexedStack(

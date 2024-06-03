@@ -11,7 +11,6 @@ class HomeController extends GetxController {
   final RxBool isLoding = true.obs;
   final RxBool functionLoading = false.obs;
   final RxList<ProductModel> productList = <ProductModel>[].obs;
-  final RxList<ProductModel> filteredProductList = <ProductModel>[].obs;
 
   final RxBool newest = true.obs;
   final RxBool oldest = false.obs;
@@ -30,7 +29,6 @@ class HomeController extends GetxController {
     if (result != null) {
       productList.clear();
       productList(result);
-      filteredProductList.addAll(productList);
       applyFilter();
       debugPrint('Total Product: ${productList.length}');
     }
@@ -40,41 +38,38 @@ class HomeController extends GetxController {
   void applyFilter() {
     //Newest
     if (newest.value) {
-      filteredProductList
-          .sort((a, b) => b.dateCreated!.compareTo(a.dateCreated!));
-      for (var e in filteredProductList) {
+      productList.sort((a, b) => b.dateCreated!.compareTo(a.dateCreated!));
+      for (var e in productList) {
         debugPrint(DateFormat('dd-MMM-yyyy').format(e.dateCreated!));
       }
     }
     //Oldest
     if (oldest.value) {
-      filteredProductList
-          .sort((a, b) => a.dateCreated!.compareTo(b.dateCreated!));
-      for (var e in filteredProductList) {
+      productList.sort((a, b) => a.dateCreated!.compareTo(b.dateCreated!));
+      for (var e in productList) {
         debugPrint(DateFormat('dd-MMM-yyyy').format(e.dateCreated!));
       }
     }
     //Low to High
     if (priceLowToHigh.value) {
-      filteredProductList.sort((a, b) => double.parse(a.price ?? '0.0')
+      productList.sort((a, b) => double.parse(a.price ?? '0.0')
           .compareTo(double.parse(b.price ?? '0.0')));
-      for (var e in filteredProductList) {
+      for (var e in productList) {
         debugPrint(e.price);
       }
     }
     //High to Low
     if (priceHighToLow.value) {
-      filteredProductList.sort((a, b) => double.parse(b.price ?? '0.0')
+      productList.sort((a, b) => double.parse(b.price ?? '0.0')
           .compareTo(double.parse(a.price ?? '0.0')));
-      for (var e in filteredProductList) {
+      for (var e in productList) {
         debugPrint(e.price);
       }
     }
     //Best Selling
     if (bestSelling.value) {
-      filteredProductList
-          .sort((a, b) => b.totalSales!.compareTo(a.totalSales!));
-      for (var e in filteredProductList) {
+      productList.sort((a, b) => b.totalSales!.compareTo(a.totalSales!));
+      for (var e in productList) {
         debugPrint('${e.totalSales}');
       }
     }
