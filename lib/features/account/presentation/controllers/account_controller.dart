@@ -1,8 +1,13 @@
+import '/features/account/domain/model/user_model.dart';
+import '/core/router/app_router.dart';
+import '/core/router/router_imports.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../features/account/domain/model/user_model.dart';
+import '../../../../core/constants/local_storage_key.dart';
+import '../../../../shared/data/data_sources/local/get_local_storage.dart';
 import '../../../../shared/utils/app_toast.dart';
 import '../../../auth/data/auth_service.dart';
+import '../../../auth/domain/model/login_model.dart';
 import '../../data/account_service.dart';
 
 class AccountController extends GetxController {
@@ -14,32 +19,28 @@ class AccountController extends GetxController {
   final passwordController = TextEditingController();
   final RxBool isLoading = false.obs;
   final RxBool functionLoading = false.obs;
-  final RxBool isUserLoggedIn = false.obs;
+  final Rxn<LoginModel> loginModel = Rxn();
   final Rxn<UserModel> userModel = Rxn();
 
   @override
   void onInit() {
-    initialize();
+    getUserFromLocal();
+    getUserFromRemote();
     super.onInit();
   }
 
-  void initialize() async {
-    checkIsUserLoggedIn();
-    getUser();
+  Future<void> getUserFromLocal() async {
+    isLoading(true);
+    final loginString =
+        await LocalStorage.getData(key: LoacalStorageKey.loginKey);
+    loginModel.value = loginModelFromJson(loginString);
+    isLoading(false);
   }
 
-  void checkIsUserLoggedIn() {}
-
-  Future<void> getUser() async {
-    if (isUserLoggedIn.value) {
-      if (isLoading.value) {
-        showToast('Another process running');
-        return;
-      }
-      isLoading(true);
-
-      isLoading(false);
-    }
+  Future<void> getUserFromRemote() async {
+    isLoading(true);
+    userModel.value = await _accountService.getUserInfo();
+    isLoading(false);
   }
 
   Future<void> logout(BuildContext context) async {
@@ -47,12 +48,8 @@ class AccountController extends GetxController {
       showToast('Another process running');
       return;
     }
-    functionLoading(true);
     await AuthService.instance.logout(context).then((value) {
-      if (value) {
-        isUserLoggedIn(false);
-      }
+      pushAndRemoveUntil(AppRouter.initializer);
     });
-    functionLoading(false);
   }
 }

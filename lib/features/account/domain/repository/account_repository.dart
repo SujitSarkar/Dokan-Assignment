@@ -1,1 +1,5 @@
-abstract class AccountRepository {}
+import '../model/user_model.dart';
+
+abstract class AccountRepository {
+  Future<UserModel?> getUserInfo();
+}
