@@ -17,16 +17,11 @@ class Signupcreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Bouncy(
-                    duration: const Duration(milliseconds: 2000),
-                    lift: 20,
-                    ratio: 0.5,
-                    pause: 0.5,
-                    child: const Icon(
-                      FeatherIcons.user,
-                      size: 100,
-                      color: AppColors.primaryColor,
-                    )),
+                const Icon(
+                  FeatherIcons.user,
+                  size: 100,
+                  color: AppColors.primaryColor,
+                ),
                 const Text(
                   "Create new account to start your journey",
                   textAlign: TextAlign.center,
@@ -67,10 +62,7 @@ class Signupcreen extends StatelessWidget {
                   () => SolidButton(
                       onTap: () => controller.userSignup(context),
                       isLoading: controller.isLoading.value,
-                      child: const Text(
-                        'Signup',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      )),
+                      buttonText: 'Signup'),
                 ),
                 RichText(
                   text: TextSpan(

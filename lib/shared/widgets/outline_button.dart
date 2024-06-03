@@ -1,53 +1,59 @@
 part of 'widget_imports.dart';
 
-class SolidButton extends StatelessWidget {
-  const SolidButton(
+class OutlineButton extends StatelessWidget {
+  const OutlineButton(
       {super.key,
       required this.onTap,
       required this.buttonText,
-      this.trailingIconData,
+      this.primaryColor,
       this.isLoading = false,
-      this.width,
-      this.height,
       this.backgroundColor,
       this.borderRadius,
+      this.fixedSize,
+      this.minimumSize,
+      this.maximumSize,
       this.splashColor,
-      this.themeColor});
+      this.width,
+      this.height});
+
   final Function() onTap;
   final String buttonText;
-  final IconData? trailingIconData;
+  final Size? fixedSize;
   final bool isLoading;
+  final Size? minimumSize;
+  final Size? maximumSize;
   final double? width;
   final double? height;
+  final Color? primaryColor;
   final Color? backgroundColor;
-  final Color? themeColor;
   final BorderRadiusGeometry? borderRadius;
-  final WidgetStateProperty<Color?>? splashColor;
+  final Color? splashColor;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              backgroundColor: backgroundColor ?? AppColors.primaryColor,
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+              backgroundColor: Colors.transparent,
+              padding: EdgeInsets.zero,
               elevation: 0.0,
               minimumSize: Size(
                   width ?? MediaQuery.of(context).size.width, height ?? 50.h),
               maximumSize: Size(
                   width ?? MediaQuery.of(context).size.width, height ?? 50.h),
+              side: BorderSide(color: primaryColor ?? AppColors.hintColor),
               shape: RoundedRectangleBorder(
                   borderRadius:
                       borderRadius ?? BorderRadius.all(Radius.circular(10.r))))
           .copyWith(
-              overlayColor: splashColor ??
-                  WidgetStateProperty.all(Colors.white.withOpacity(0.5))),
+              overlayColor: WidgetStateProperty.all(
+                  splashColor ?? AppColors.hintColor.withOpacity(0.2))),
       onPressed: onTap,
       child: isLoading
           ? const LoadingWidget(color: Colors.white)
           : buttonText.text
               .fontWeight(FontWeight.w700)
               .size(17.sp)
-              .color(themeColor ?? Colors.white)
+              .color(AppColors.hintColor)
               .make(),
     );
   }

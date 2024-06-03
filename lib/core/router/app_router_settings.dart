@@ -8,7 +8,7 @@ class GeneratedRoute {
             settings: settings,
             transitionsBuilder: fadeTransition,
             pageBuilder: (_, animation, secondaryAnimation) =>
-                const NavBarScreen());
+                const LoginScreen());
 
       case AppRouter.login:
         return PageRouteBuilder(

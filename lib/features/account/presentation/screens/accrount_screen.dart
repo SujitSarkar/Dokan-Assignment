@@ -61,13 +61,7 @@ class AccountScreen extends StatelessWidget {
                                       isLoading: accountController
                                           .functionLoading.value,
                                       backgroundColor: AppColors.errorColor,
-                                      child: Text(
-                                        'Logout',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(color: Colors.white),
-                                      )),
+                                      buttonText: 'Logout'),
                                 ))
                           ],
                         ),

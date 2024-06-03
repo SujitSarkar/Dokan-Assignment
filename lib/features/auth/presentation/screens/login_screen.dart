@@ -18,16 +18,11 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Bouncy(
-                        duration: const Duration(milliseconds: 2000),
-                        lift: 20,
-                        ratio: 0.5,
-                        pause: 0.5,
-                        child: const Icon(
-                          FeatherIcons.unlock,
-                          size: 100,
-                          color: AppColors.primaryColor,
-                        )),
+                    const Icon(
+                      FeatherIcons.unlock,
+                      size: 100,
+                      color: AppColors.primaryColor,
+                    ),
                     const Text(
                       'Login to Bookmark News',
                       textAlign: TextAlign.center,
@@ -55,10 +50,7 @@ class LoginScreen extends StatelessWidget {
                           controller.userLogin(context);
                         },
                         isLoading: controller.isLoading.value,
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ))),
+                        buttonText: 'Login')),
                     RichText(
                       text: TextSpan(
                         style: Theme.of(context).textTheme.bodyMedium,

@@ -19,13 +19,7 @@ class LogInRequiredWidget extends StatelessWidget {
               onTap: () {
                 pushTo(AppRouter.login);
               },
-              child: Text(
-                'Sign In',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(color: Colors.white),
-              ))
+              buttonText: 'Sign In')
         ],
       ),
     );

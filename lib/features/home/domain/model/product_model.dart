@@ -1,7 +1,14 @@
+// To parse this JSON data, do
+//
+//     final productModel = productModelFromJson(jsonString);
+
 import 'dart:convert';
 
 List<ProductModel> productModelFromJson(String str) => List<ProductModel>.from(
     json.decode(str).map((x) => ProductModel.fromJson(x)));
+
+String productModelToJson(List<ProductModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ProductModel {
   final int? id;
@@ -41,8 +48,8 @@ class ProductModel {
   final String? taxStatus;
   final String? taxClass;
   final bool? manageStock;
-  final dynamic stockQuantity;
-  final String? lowStockAmount;
+  final int? stockQuantity;
+  final dynamic lowStockAmount;
   final bool? inStock;
   final String? backorders;
   final bool? backordersAllowed;
@@ -63,11 +70,11 @@ class ProductModel {
   final int? parentId;
   final String? purchaseNote;
   final List<Category>? categories;
-  final List<dynamic>? tags;
+  final List<Category>? tags;
   final List<Image>? images;
-  final List<dynamic>? attributes;
+  final List<Attribute>? attributes;
   final List<dynamic>? defaultAttributes;
-  final List<dynamic>? variations;
+  final List<int>? variations;
   final List<dynamic>? groupedProducts;
   final int? menuOrder;
   final List<MetaDatum>? metaData;
@@ -230,19 +237,21 @@ class ProductModel {
                 json["categories"]!.map((x) => Category.fromJson(x))),
         tags: json["tags"] == null
             ? []
-            : List<dynamic>.from(json["tags"]!.map((x) => x)),
+            : List<Category>.from(
+                json["tags"]!.map((x) => Category.fromJson(x))),
         images: json["images"] == null
             ? []
             : List<Image>.from(json["images"]!.map((x) => Image.fromJson(x))),
         attributes: json["attributes"] == null
             ? []
-            : List<dynamic>.from(json["attributes"]!.map((x) => x)),
+            : List<Attribute>.from(
+                json["attributes"]!.map((x) => Attribute.fromJson(x))),
         defaultAttributes: json["default_attributes"] == null
             ? []
             : List<dynamic>.from(json["default_attributes"]!.map((x) => x)),
         variations: json["variations"] == null
             ? []
-            : List<dynamic>.from(json["variations"]!.map((x) => x)),
+            : List<int>.from(json["variations"]!.map((x) => x)),
         groupedProducts: json["grouped_products"] == null
             ? []
             : List<dynamic>.from(json["grouped_products"]!.map((x) => x)),
@@ -254,6 +263,145 @@ class ProductModel {
         store: json["store"] == null ? null : Store.fromJson(json["store"]),
         links: json["_links"] == null ? null : Links.fromJson(json["_links"]),
       );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "slug": slug,
+        "post_author": postAuthor,
+        "permalink": permalink,
+        "date_created": dateCreated?.toIso8601String(),
+        "date_created_gmt": dateCreatedGmt?.toIso8601String(),
+        "date_modified": dateModified?.toIso8601String(),
+        "date_modified_gmt": dateModifiedGmt?.toIso8601String(),
+        "type": type,
+        "status": status,
+        "featured": featured,
+        "catalog_visibility": catalogVisibility,
+        "description": description,
+        "short_description": shortDescription,
+        "sku": sku,
+        "price": price,
+        "regular_price": regularPrice,
+        "sale_price": salePrice,
+        "date_on_sale_from": dateOnSaleFrom,
+        "date_on_sale_from_gmt": dateOnSaleFromGmt,
+        "date_on_sale_to": dateOnSaleTo,
+        "date_on_sale_to_gmt": dateOnSaleToGmt,
+        "price_html": priceHtml,
+        "on_sale": onSale,
+        "purchasable": purchasable,
+        "total_sales": totalSales,
+        "virtual": virtual,
+        "downloadable": downloadable,
+        "downloads": downloads == null
+            ? []
+            : List<dynamic>.from(downloads!.map((x) => x.toJson())),
+        "download_limit": downloadLimit,
+        "download_expiry": downloadExpiry,
+        "external_url": externalUrl,
+        "button_text": buttonText,
+        "tax_status": taxStatus,
+        "tax_class": taxClass,
+        "manage_stock": manageStock,
+        "stock_quantity": stockQuantity,
+        "low_stock_amount": lowStockAmount,
+        "in_stock": inStock,
+        "backorders": backorders,
+        "backorders_allowed": backordersAllowed,
+        "backordered": backordered,
+        "sold_individually": soldIndividually,
+        "weight": weight,
+        "dimensions": dimensions?.toJson(),
+        "shipping_required": shippingRequired,
+        "shipping_taxable": shippingTaxable,
+        "shipping_class": shippingClass,
+        "shipping_class_id": shippingClassId,
+        "reviews_allowed": reviewsAllowed,
+        "average_rating": averageRating,
+        "rating_count": ratingCount,
+        "related_ids": relatedIds == null
+            ? []
+            : List<dynamic>.from(relatedIds!.map((x) => x)),
+        "upsell_ids": upsellIds == null
+            ? []
+            : List<dynamic>.from(upsellIds!.map((x) => x)),
+        "cross_sell_ids": crossSellIds == null
+            ? []
+            : List<dynamic>.from(crossSellIds!.map((x) => x)),
+        "parent_id": parentId,
+        "purchase_note": purchaseNote,
+        "categories": categories == null
+            ? []
+            : List<dynamic>.from(categories!.map((x) => x.toJson())),
+        "tags": tags == null
+            ? []
+            : List<dynamic>.from(tags!.map((x) => x.toJson())),
+        "images": images == null
+            ? []
+            : List<dynamic>.from(images!.map((x) => x.toJson())),
+        "attributes": attributes == null
+            ? []
+            : List<dynamic>.from(attributes!.map((x) => x.toJson())),
+        "default_attributes": defaultAttributes == null
+            ? []
+            : List<dynamic>.from(defaultAttributes!.map((x) => x)),
+        "variations": variations == null
+            ? []
+            : List<dynamic>.from(variations!.map((x) => x)),
+        "grouped_products": groupedProducts == null
+            ? []
+            : List<dynamic>.from(groupedProducts!.map((x) => x)),
+        "menu_order": menuOrder,
+        "meta_data": metaData == null
+            ? []
+            : List<dynamic>.from(metaData!.map((x) => x.toJson())),
+        "store": store?.toJson(),
+        "_links": links?.toJson(),
+      };
+}
+
+class Attribute {
+  final int? id;
+  final String? slug;
+  final String? name;
+  final int? position;
+  final bool? visible;
+  final bool? variation;
+  final List<String>? options;
+
+  Attribute({
+    this.id,
+    this.slug,
+    this.name,
+    this.position,
+    this.visible,
+    this.variation,
+    this.options,
+  });
+
+  factory Attribute.fromJson(Map<String, dynamic> json) => Attribute(
+        id: json["id"],
+        slug: json["slug"],
+        name: json["name"],
+        position: json["position"],
+        visible: json["visible"],
+        variation: json["variation"],
+        options: json["options"] == null
+            ? []
+            : List<String>.from(json["options"]!.map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "slug": slug,
+        "name": name,
+        "position": position,
+        "visible": visible,
+        "variation": variation,
+        "options":
+            options == null ? [] : List<dynamic>.from(options!.map((x) => x)),
+      };
 }
 
 class Category {
@@ -272,6 +420,12 @@ class Category {
         name: json["name"],
         slug: json["slug"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "slug": slug,
+      };
 }
 
 class Dimensions {
@@ -290,6 +444,12 @@ class Dimensions {
         width: json["width"],
         height: json["height"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "length": length,
+        "width": width,
+        "height": height,
+      };
 }
 
 class Download {
@@ -308,6 +468,12 @@ class Download {
         name: json["name"],
         file: json["file"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "file": file,
+      };
 }
 
 class Image {
@@ -352,6 +518,18 @@ class Image {
         alt: json["alt"],
         position: json["position"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "date_created": dateCreated?.toIso8601String(),
+        "date_created_gmt": dateCreatedGmt?.toIso8601String(),
+        "date_modified": dateModified?.toIso8601String(),
+        "date_modified_gmt": dateModifiedGmt?.toIso8601String(),
+        "src": src,
+        "name": name,
+        "alt": alt,
+        "position": position,
+      };
 }
 
 class Links {
@@ -416,6 +594,36 @@ class MetaDatum {
         key: json["key"],
         value: json["value"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "key": key,
+        "value": value,
+      };
+}
+
+class ValueClass {
+  final String? enableWholesale;
+  final String? price;
+  final dynamic quantity;
+
+  ValueClass({
+    this.enableWholesale,
+    this.price,
+    this.quantity,
+  });
+
+  factory ValueClass.fromJson(Map<String, dynamic> json) => ValueClass(
+        enableWholesale: json["enable_wholesale"],
+        price: json["price"],
+        quantity: json["quantity"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "enable_wholesale": enableWholesale,
+        "price": price,
+        "quantity": quantity,
+      };
 }
 
 class Store {
@@ -441,6 +649,14 @@ class Store {
         address:
             json["address"] == null ? null : Address.fromJson(json["address"]),
       );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "url": url,
+        "avatar": avatar,
+        "address": address?.toJson(),
+      };
 }
 
 class Address {
@@ -468,4 +684,13 @@ class Address {
         country: json["country"],
         state: json["state"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "street_1": street1,
+        "street_2": street2,
+        "city": city,
+        "zip": zip,
+        "country": country,
+        "state": state,
+      };
 }
