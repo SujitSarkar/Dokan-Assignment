@@ -18,23 +18,20 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Icon(
-                      FeatherIcons.unlock,
-                      size: 100,
-                      color: AppColors.primaryColor,
+                    SvgPicture.asset(
+                      Assets.assetsSvgDokanLogo,
+                      height: 50.h,
+                      width: 166.w,
                     ),
-                    const Text(
-                      'Login to Bookmark News',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: AppColors.primaryColor, fontSize: 24),
-                    ),
-                    const SizedBox(height: 40),
+                    83.heightBox,
+                    'Sign In'.text.size(25).fontWeight(FontWeight.bold).make(),
+                    40.heightBox,
                     TextFormFieldWidget(
                       controller: controller.emailController,
-                      hintText: "Email address",
+                      hintText: "Email",
                       textInputType: TextInputType.emailAddress,
                       required: true,
+                      prefixIcon: FeatherIcons.mail,
                     ),
                     const SizedBox(height: 16),
                     TextFormFieldWidget(
@@ -43,32 +40,61 @@ class LoginScreen extends StatelessWidget {
                       textInputType: TextInputType.visiblePassword,
                       required: true,
                       obscure: true,
+                      prefixIcon: FeatherIcons.lock,
                     ),
-                    const SizedBox(height: 20),
+                    19.heightBox,
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: 'Forgot Password?'
+                          .text
+                          .size(13)
+                          .align(TextAlign.end)
+                          .fontWeight(FontWeight.w500)
+                          .color(AppColors.hintColor)
+                          .make(),
+                    ),
+                    40.heightBox,
                     Obx(() => SolidButton(
-                        onTap: () {
-                          controller.userLogin(context);
-                        },
+                        onTap: () => controller.userLogin(context),
+                        height: 61,
+                        backgroundColor: AppColors.secondaryColor,
                         isLoading: controller.isLoading.value,
                         buttonText: 'Login')),
-                    RichText(
-                      text: TextSpan(
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        children: [
-                          const TextSpan(text: 'Don\'t have an account? '),
-                          TextSpan(
-                            text: 'Signup',
-                            style: const TextStyle(
-                                color: AppColors.secondaryColor,
-                                fontWeight: FontWeight.w700),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                pushTo(AppRouter.signup);
-                              },
-                          ),
-                        ],
-                      ),
-                    ).paddingOnly(top: 16),
+                    40.heightBox,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CardWidget(
+                            height: 56,
+                            width: 56,
+                            contentPadding: const EdgeInsets.all(16),
+                            child: SvgPicture.asset(
+                              Assets.assetsSvgFacebook,
+                              width: 12.36,
+                              height: 22.91,
+                            )),
+                        14.widthBox,
+                        CardWidget(
+                            height: 56,
+                            width: 56,
+                            child: Image.asset(
+                              Assets.assetsImageGoogle,
+                              width: 22.91,
+                              height: 22.91,
+                            )),
+                      ],
+                    ),
+                    40.heightBox,
+                    InkWell(
+                      onTap: () => pushTo(AppRouter.signup),
+                      child: 'Create New Account'
+                          .text
+                          .size(17)
+                          .align(TextAlign.center)
+                          .fontWeight(FontWeight.w400)
+                          .color(AppColors.hintColor)
+                          .make(),
+                    ),
                   ],
                 ),
               ),

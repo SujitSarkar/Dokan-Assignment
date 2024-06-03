@@ -1,19 +1,37 @@
+import 'dart:convert';
+import '/features/auth/domain/model/login_model.dart';
+import '/shared/data/data_sources/local/get_local_storage.dart';
+import '../../../../core/constants/local_storage_key.dart';
+import '/core/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../core/router/router_imports.dart';
 import '../../../../shared/utils/app_toast.dart';
-import '../../../account/presentation/controllers/account_controller.dart';
 import '../../data/auth_service.dart';
 
 class LoginController extends GetxController {
   LoginController(this._authService);
   final AuthService _authService;
 
-  RxBool isLoading = false.obs;
-
+  final RxBool isLoading = false.obs;
   final GlobalKey<FormState> loginFormKey = GlobalKey();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  @override
+  void onInit() {
+    habdleLogin();
+    super.onInit();
+  }
+
+  Future<void> habdleLogin() async {
+    isLoading(true);
+    final data = await LocalStorage.getData(key: LoacalStorageKey.loginKey);
+    if (data != null) {
+      pushAndRemoveUntil(AppRouter.navBar);
+    }
+    isLoading(false);
+  }
 
   void clearData() {
     emailController.clear();
@@ -33,19 +51,20 @@ class LoginController extends GetxController {
         .login(
             email: emailController.text.trim(),
             password: passwordController.text)
-        .then((credential) {
-      if (credential != null) {
+        .then((result) async {
+      if (result != null) {
+        await saveloginResponseToLocal(loginModel: result);
         showToast('Successfully logged in');
         clearData();
-        updateUserInfo();
-        popScreen();
+        pushAndRemoveUntil(AppRouter.navBar);
       }
     });
     isLoading(false);
   }
 
-  void updateUserInfo() {
-    final AccountController accountController = Get.find();
-    accountController.initialize();
+  Future<void> saveloginResponseToLocal(
+      {required LoginModel loginModel}) async {
+    LocalStorage.saveData(
+        key: LoacalStorageKey.loginKey, data: jsonEncode(loginModel.toJson()));
   }
 }

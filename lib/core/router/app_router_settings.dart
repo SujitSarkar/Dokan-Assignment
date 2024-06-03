@@ -10,12 +10,12 @@ class GeneratedRoute {
             pageBuilder: (_, animation, secondaryAnimation) =>
                 const LoginScreen());
 
-      case AppRouter.login:
+      case AppRouter.navBar:
         return PageRouteBuilder(
             settings: settings,
-            transitionsBuilder: slideTransition,
+            transitionsBuilder: fadeTransition,
             pageBuilder: (_, animation, secondaryAnimation) =>
-                const LoginScreen());
+                const NavBarScreen());
 
       case AppRouter.signup:
         return PageRouteBuilder(
@@ -29,7 +29,7 @@ class GeneratedRoute {
             settings: settings,
             transitionsBuilder: fadeTransition,
             pageBuilder: (_, animation, secondaryAnimation) =>
-                const HomeScreen());
+                const LoginScreen());
     }
   }
 

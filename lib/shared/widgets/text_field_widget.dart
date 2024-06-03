@@ -61,100 +61,109 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return TextFormField(
-      validator: (value) {
-        if (widget.required && value != null && value.isEmpty) {
-          return "${widget.hintText} can't be empty";
-        } else if (widget.required &&
-            value != null &&
-            widget.textInputType == TextInputType.emailAddress &&
-            !value.isValidEmail) {
-          return "Invalid email address";
-        } else {
-          return null;
-        }
-      },
-      controller: widget.controller,
-      onTap: widget.onTap,
-      focusNode: widget.focusNode,
-      onChanged: (val) {
-        if (widget.onChanged != null) {
-          widget.onChanged!(val);
-        }
-      },
-      maxLength: widget.maxLength,
-      onEditingComplete: widget.onEditingComplete,
-      readOnly: widget.readOnly,
-      obscureText: widget.obscure ? _obscure : false,
-      keyboardType: widget.textInputType ?? TextInputType.text,
-      textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
-      maxLines: widget.maxLine ?? 1,
-      minLines: widget.minLine ?? 1,
-      textAlign: widget.textAlign!,
-      style: const TextStyle(
-          color: AppColors.primaryColor,
-          fontWeight: FontWeight.w400,
-          fontSize: 16),
-      decoration: InputDecoration(
-          fillColor: AppColors.textFieldFillColor,
-          filled: true,
-          errorText: widget.validationErrorMessage,
-          alignLabelWithHint: true,
-          border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide.none),
-          enabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide.none),
-          focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide.none),
-          errorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide.none),
-          isDense: true,
-          contentPadding: widget.contentPadding ??
-              const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          floatingLabelAlignment: FloatingLabelAlignment.start,
-          hintText: widget.hintText,
-          floatingLabelBehavior: FloatingLabelBehavior.auto,
-          hintStyle: const TextStyle(
-              color: AppColors.textFieldHintColor,
-              fontWeight: FontWeight.w300,
-              fontSize: 16),
-          prefixIcon: widget.prefixIcon != null
-              ? InkWell(
-                  onTap: widget.prefixOnTap,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8, left: 10),
-                    child: Icon(widget.prefixIcon,
-                        size: 20,
-                        color: widget.prefixColor ?? AppColors.primaryColor),
-                  ),
-                )
-              : null,
-          suffixIconConstraints: BoxConstraints.loose(size),
-          prefixIconConstraints: BoxConstraints.loose(size),
-          suffixIcon: widget.obscure
-              ? InkWell(
-                  onTap: () => setState(() => _obscure = !_obscure),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(
-                        _obscure
-                            ? CupertinoIcons.eye_slash
-                            : CupertinoIcons.eye,
-                        size: 20,
-                        color: widget.suffixColor ?? AppColors.primaryColor),
-                  ),
-                )
-              : InkWell(
-                  onTap: widget.suffixOnTap,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(widget.suffixIcon, size: 28),
-                  ),
-                )),
+    return CardWidget(
+      child: TextFormField(
+        validator: (value) {
+          if (widget.required && value != null && value.isEmpty) {
+            return "${widget.hintText} can't be empty";
+          } else if (widget.required &&
+              value != null &&
+              widget.textInputType == TextInputType.emailAddress &&
+              !value.isValidEmail) {
+            return "Invalid email address";
+          } else {
+            return null;
+          }
+        },
+        controller: widget.controller,
+        onTap: widget.onTap,
+        focusNode: widget.focusNode,
+        onChanged: (val) {
+          if (widget.onChanged != null) {
+            widget.onChanged!(val);
+          }
+        },
+        maxLength: widget.maxLength,
+        onEditingComplete: widget.onEditingComplete,
+        readOnly: widget.readOnly,
+        obscureText: widget.obscure ? _obscure : false,
+        keyboardType: widget.textInputType ?? TextInputType.text,
+        textCapitalization:
+            widget.textCapitalization ?? TextCapitalization.none,
+        maxLines: widget.maxLine ?? 1,
+        minLines: widget.minLine ?? 1,
+        textAlign: widget.textAlign!,
+        style: TextStyle(
+            color: AppColors.textColor,
+            fontWeight: FontWeight.w400,
+            fontSize: 17.5.sp),
+        decoration: InputDecoration(
+            fillColor: AppColors.cardColor,
+            filled: true,
+            errorText: widget.validationErrorMessage,
+            alignLabelWithHint: true,
+            border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide.none),
+            enabledBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide.none),
+            focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide.none),
+            errorBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide.none),
+            isDense: true,
+            contentPadding: widget.contentPadding ??
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            floatingLabelAlignment: FloatingLabelAlignment.start,
+            hintText: widget.hintText,
+            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            hintStyle: TextStyle(
+                color: AppColors.textFieldHintColor,
+                fontWeight: FontWeight.w300,
+                fontSize: 17.5.sp),
+            prefixIcon: widget.prefixIcon != null
+                ? InkWell(
+                    onTap: widget.prefixOnTap,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8, left: 10),
+                      child: Icon(widget.prefixIcon,
+                          size: 20,
+                          color: widget.prefixColor ??
+                              AppColors.textFieldHintColor),
+                    ),
+                  )
+                : null,
+            suffixIconConstraints: BoxConstraints.loose(size),
+            prefixIconConstraints: BoxConstraints.loose(size),
+            suffixIcon: widget.obscure
+                ? InkWell(
+                    onTap: () => setState(() => _obscure = !_obscure),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Icon(
+                          _obscure
+                              ? CupertinoIcons.eye_slash
+                              : CupertinoIcons.eye,
+                          size: 20,
+                          color: widget.suffixColor ??
+                              AppColors.textFieldHintColor),
+                    ),
+                  )
+                : InkWell(
+                    onTap: widget.suffixOnTap,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Icon(
+                        widget.suffixIcon,
+                        size: 28,
+                        color: AppColors.textFieldHintColor,
+                      ),
+                    ),
+                  )),
+      ),
     );
   }
 }

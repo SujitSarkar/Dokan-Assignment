@@ -1,7 +1,7 @@
+import 'package:dokan/core/router/router_imports.dart';
 import 'package:get/get.dart';
 import '../../../../../shared/utils/app_toast.dart';
 import 'package:flutter/material.dart';
-import '../../../account/presentation/controllers/account_controller.dart';
 import '../../data/auth_service.dart';
 
 class SignupController extends GetxController {
@@ -10,6 +10,7 @@ class SignupController extends GetxController {
 
   final GlobalKey<FormState> signupFormKey = GlobalKey();
   final nameController = TextEditingController();
+  final userNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -18,6 +19,7 @@ class SignupController extends GetxController {
 
   void clearData() {
     nameController.clear();
+    userNameController.clear();
     emailController.clear();
     passwordController.clear();
     confirmPasswordController.clear();
@@ -38,14 +40,16 @@ class SignupController extends GetxController {
     isLoading(true);
     await _authService
         .signup(
-            email: emailController.text.trim(),
-            password: passwordController.text)
-        .then((credential) async {});
+      email: emailController.text.trim(),
+      password: passwordController.text,
+      name: nameController.text.trim(),
+      username: userNameController.text.trim(),
+    )
+        .then((result) {
+      if (result) {
+        popScreen();
+      }
+    });
     isLoading(false);
-  }
-
-  void updateUserInfo() {
-    final AccountController accountController = Get.find();
-    accountController.initialize();
   }
 }

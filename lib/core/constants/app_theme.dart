@@ -13,7 +13,7 @@ class AppThemes {
           const TextSelectionThemeData(cursorColor: AppColors.primaryColor),
       appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.backgroundColor,
-          iconTheme: IconThemeData(color: AppColors.primaryColor)),
+          iconTheme: IconThemeData(color: AppColors.hintColor)),
       useMaterial3: true,
       fontFamily: GoogleFonts.roboto().fontFamily,
       textTheme: const TextTheme(
