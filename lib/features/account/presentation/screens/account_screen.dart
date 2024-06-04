@@ -6,7 +6,7 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AccountController>(
         init: AccountController(AccountService()),
-        builder: (accountController) {
+        builder: (controller) {
           return Scaffold(
             appBar: AppBar(
               title: 'My Account'
@@ -17,7 +17,7 @@ class AccountScreen extends StatelessWidget {
                   .make(),
               centerTitle: true,
             ),
-            body: Obx(() => accountController.isLoading.value
+            body: Obx(() => controller.isLoading.value
                 ? const LoadingWidget()
                 : SingleChildScrollView(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -36,7 +36,7 @@ class AccountScreen extends StatelessWidget {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(80)),
                               child: CachedNetworkImage(
-                                imageUrl: accountController
+                                imageUrl: controller
                                         .userModel.value?.avatarUrls?['96'] ??
                                     '',
                                 errorWidget: (context, url, error) =>
@@ -51,14 +51,17 @@ class AccountScreen extends StatelessWidget {
                           ),
                         ),
                         30.heightBox,
-                        (accountController.loginModel.value?.userDisplayName ??
-                                'Not found')
+                        (controller.userModel.value?.firstName != null &&
+                                    controller
+                                        .userModel.value!.firstName!.isNotEmpty
+                                ? '${controller.userModel.value?.firstName} ${controller.userModel.value?.lastName}'
+                                : controller.userModel.value?.name ??
+                                    'Not found')
                             .text
                             .fontWeight(FontWeight.bold)
                             .size(24.sp)
                             .make(),
-                        (accountController.loginModel.value?.userEmail ??
-                                'Not found')
+                        (controller.userModel.value?.email ?? 'Not found')
                             .text
                             .color(AppColors.hintColor)
                             .size(15.sp)
@@ -70,22 +73,34 @@ class AccountScreen extends StatelessWidget {
                             contentPadding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
-                                AccountMenuWidget(
+                                AccountExpandableMenu(
                                   leadingSvgAsset: Assets.assetsSvgAccount,
                                   title: 'Account',
                                   children: [
                                     TextFormFieldWithTitle(
-                                      controller: TextEditingController(),
+                                      controller: controller.email,
                                       hintText: 'Your email address',
                                       labelText: 'Email',
                                       required: true,
+                                      textInputType: TextInputType.emailAddress,
                                     ),
                                     16.heightBox,
                                     TextFormFieldWithTitle(
-                                      controller: TextEditingController(),
-                                      hintText: 'Your full name',
-                                      labelText: 'Full Name',
+                                      controller: controller.firstName,
+                                      hintText: 'Your first name',
+                                      labelText: 'First Name',
                                       required: true,
+                                      textCapitalization:
+                                          TextCapitalization.words,
+                                    ),
+                                    16.heightBox,
+                                    TextFormFieldWithTitle(
+                                      controller: controller.lastName,
+                                      hintText: 'Your last name',
+                                      labelText: 'Last Name',
+                                      required: true,
+                                      textCapitalization:
+                                          TextCapitalization.words,
                                     ),
                                     20.heightBox,
                                     Row(
@@ -99,14 +114,18 @@ class AccountScreen extends StatelessWidget {
                                         ),
                                         16.widthBox,
                                         Expanded(
-                                          child: SolidButton(
-                                            onTap: () {},
+                                            child: Obx(
+                                          () => SolidButton(
+                                            onTap: () =>
+                                                controller.updateUserInfo(),
                                             buttonText: 'Save',
+                                            isLoading: controller
+                                                .functionLoading.value,
                                             backgroundColor:
                                                 AppColors.buttonColor,
                                             height: 50,
                                           ),
-                                        ),
+                                        )),
                                       ],
                                     ),
                                     16.heightBox
@@ -114,24 +133,32 @@ class AccountScreen extends StatelessWidget {
                                 ),
                                 const Divider(
                                     color: AppColors.disableStartColor),
-                                const AccountMenuWidget(
+                                AccountMenuWidget(
                                   leadingSvgAsset: Assets.assetsSvgPassword,
                                   title: 'Password',
-                                  children: [],
+                                  onTap: () {},
                                 ),
                                 const Divider(
                                     color: AppColors.disableStartColor),
-                                const AccountMenuWidget(
+                                AccountMenuWidget(
                                   leadingSvgAsset: Assets.assetsSvgNotification,
                                   title: 'Notification',
-                                  children: [],
+                                  onTap: () {},
                                 ),
                                 const Divider(
                                     color: AppColors.disableStartColor),
-                                const AccountMenuWidget(
+                                AccountMenuWidget(
                                   leadingSvgAsset: Assets.assetsSvgWishlist,
                                   title: 'Wishlist',
-                                  children: [],
+                                  onTap: () {},
+                                ),
+                                const Divider(
+                                    color: AppColors.disableStartColor),
+                                AccountMenuWidget(
+                                  leadingSvgAsset: Assets.assetsSvgLogout,
+                                  title: 'Logout',
+                                  onTap: () =>
+                                      showLogoutDialog(context, controller),
                                 ),
                               ],
                             ))
@@ -140,5 +167,44 @@ class AccountScreen extends StatelessWidget {
                   )),
           );
         });
+  }
+
+  void showLogoutDialog(BuildContext context, AccountController controller) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        scrollable: true,
+        title: Text(
+          'Do you want to logout?',
+          style: TextStyle(
+            color: AppColors.screenTitleColor,
+            fontSize: 18.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              'No',
+              style: TextStyle(
+                color: AppColors.buttonColor,
+                fontSize: 18.sp,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () => controller.logout(),
+            child: Text(
+              'Yes',
+              style: TextStyle(
+                color: AppColors.secondaryColor,
+                fontSize: 18.sp,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
