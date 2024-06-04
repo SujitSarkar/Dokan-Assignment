@@ -12,7 +12,7 @@ class TextFormFieldWidget extends StatefulWidget {
       this.textInputType,
       this.textCapitalization,
       this.textAlign = TextAlign.left,
-      this.prefixIcon,
+      this.prefix,
       this.suffixIcon,
       this.suffixColor,
       this.prefixColor,
@@ -31,7 +31,7 @@ class TextFormFieldWidget extends StatefulWidget {
   final String hintText;
   final TextInputType? textInputType;
   final TextCapitalization? textCapitalization;
-  final IconData? prefixIcon;
+  final Widget? prefix;
   final IconData? suffixIcon;
   final Color? suffixColor;
   final Color? prefixColor;
@@ -124,25 +124,17 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
                 color: AppColors.textFieldHintColor,
                 fontWeight: FontWeight.w300,
                 fontSize: 17.5.sp),
-            prefixIcon: widget.prefixIcon != null
-                ? InkWell(
-                    onTap: widget.prefixOnTap,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8, left: 10),
-                      child: Icon(widget.prefixIcon,
-                          size: 20,
-                          color: widget.prefixColor ??
-                              AppColors.textFieldHintColor),
-                    ),
-                  )
-                : null,
+            prefixIcon: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: widget.prefix,
+            ),
             suffixIconConstraints: BoxConstraints.loose(size),
             prefixIconConstraints: BoxConstraints.loose(size),
             suffixIcon: widget.obscure
                 ? InkWell(
                     onTap: () => setState(() => _obscure = !_obscure),
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.only(right: 16),
                       child: Icon(
                           _obscure
                               ? CupertinoIcons.eye_slash
@@ -155,7 +147,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
                 : InkWell(
                     onTap: widget.suffixOnTap,
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.only(right: 16),
                       child: Icon(
                         widget.suffixIcon,
                         size: 28,

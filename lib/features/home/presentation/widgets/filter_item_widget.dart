@@ -26,8 +26,6 @@ class FilterItemWidget extends StatelessWidget {
                     onChange: (value) {
                       homeController.newest(value);
                       homeController.oldest(false);
-                      homeController.priceLowToHigh(false);
-                      homeController.priceHighToLow(false);
                       homeController.bestSelling(false);
                     }),
               ),
@@ -38,8 +36,6 @@ class FilterItemWidget extends StatelessWidget {
                     onChange: (value) {
                       homeController.oldest(value);
                       homeController.newest(false);
-                      homeController.priceLowToHigh(false);
-                      homeController.priceHighToLow(false);
                       homeController.bestSelling(false);
                     }),
               ),
@@ -49,8 +45,6 @@ class FilterItemWidget extends StatelessWidget {
                     value: homeController.priceLowToHigh.value,
                     onChange: (value) {
                       homeController.priceLowToHigh(value);
-                      homeController.newest(false);
-                      homeController.oldest(false);
                       homeController.priceHighToLow(false);
                       homeController.bestSelling(false);
                     }),
@@ -61,8 +55,6 @@ class FilterItemWidget extends StatelessWidget {
                     value: homeController.priceHighToLow.value,
                     onChange: (value) {
                       homeController.priceHighToLow(value);
-                      homeController.newest(false);
-                      homeController.oldest(false);
                       homeController.priceLowToHigh(false);
                       homeController.bestSelling(false);
                     }),

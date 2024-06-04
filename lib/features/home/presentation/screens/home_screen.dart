@@ -20,10 +20,12 @@ class HomeScreen extends StatelessWidget {
               actions: [
                 IconButton(
                     onPressed: () {},
-                    icon: const Icon(
-                      Icons.search,
-                      size: 28,
-                      color: AppColors.textColor,
+                    icon: SvgPicture.asset(
+                      height: 22,
+                      width: 22,
+                      Assets.assetsSvgSearch,
+                      colorFilter: const ColorFilter.mode(
+                          AppColors.textColor, BlendMode.srcIn),
                     ))
               ],
             ),

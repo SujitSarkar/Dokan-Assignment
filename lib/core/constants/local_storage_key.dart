@@ -1,3 +1,3 @@
 class LoacalStorageKey {
-  static const String loginKey = 'loginKey';
+  static const String tokenKey = 'tokenKey';
 }

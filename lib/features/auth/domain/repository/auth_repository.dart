@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import '../model/login_model.dart';
 
 abstract class AuthRepository {
@@ -10,5 +9,5 @@ abstract class AuthRepository {
       required String email,
       required String password});
 
-  Future<bool> logout(BuildContext context);
+  Future<bool> logout();
 }

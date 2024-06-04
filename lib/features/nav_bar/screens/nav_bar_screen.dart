@@ -1,5 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:feather_icons/feather_icons.dart';
+import '/core/constants/app_assets.dart';
+import 'package:flutter_svg/svg.dart';
 import '/core/constants/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -30,10 +31,7 @@ class NavBarScreen extends StatelessWidget {
                         ],
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight)),
-                child: const Icon(
-                  FeatherIcons.search,
-                  color: Colors.white,
-                ),
+                child: SvgPicture.asset(Assets.assetsSvgSearch),
               )
             : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -41,17 +39,22 @@ class NavBarScreen extends StatelessWidget {
           itemCount: homeController.items.length,
           activeIndex: homeController.visit.value,
           gapLocation: GapLocation.center,
-          notchSmoothness: NotchSmoothness.softEdge,
-          leftCornerRadius: 16,
-          rightCornerRadius: 16,
+          notchSmoothness: NotchSmoothness.defaultEdge,
+          leftCornerRadius: 12,
+          rightCornerRadius: 12,
           onTap: (index) => homeController.itemOntTap(index),
           tabBuilder: (int index, bool isActive) {
-            return Icon(
-              homeController.items[index],
-              size: 24,
-              color: isActive
-                  ? AppColors.primaryColor
-                  : AppColors.navBarUnselectedIconColor,
+            return Container(
+              padding: const EdgeInsets.all(15),
+              child: SvgPicture.asset(
+                fit: BoxFit.fitHeight,
+                homeController.items[index],
+                colorFilter: ColorFilter.mode(
+                    isActive
+                        ? AppColors.primaryColor
+                        : AppColors.navBarUnselectedIconColor,
+                    BlendMode.srcIn),
+              ),
             );
           },
         )));

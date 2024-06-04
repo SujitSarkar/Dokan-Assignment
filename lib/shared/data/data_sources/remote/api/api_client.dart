@@ -12,10 +12,11 @@ class ApiClient {
   }
 
   Future<void> setToken() async {
-    final userDataString =
-        await LocalStorage.getData(key: LoacalStorageKey.loginKey);
-    final LoginModel model = loginModelFromJson(userDataString);
-    options = Options(headers: {'Authorization': 'Bearer ${model.token}'});
+    final String? token =
+        await LocalStorage.getData(key: LoacalStorageKey.tokenKey);
+    if (token != null) {
+      options = Options(headers: {'Authorization': 'Bearer $token'});
+    }
   }
 
   Future<Response> getRequest(

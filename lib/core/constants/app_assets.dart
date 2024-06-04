@@ -21,6 +21,14 @@ class Assets {
   /// assets/svg/arrow_down.svg
   static const String assetsSvgArrowDown = "assets/svg/arrow_down.svg";
 
+  /// Assets for assetsSvgCart
+  /// assets/svg/cart.svg
+  static const String assetsSvgCart = "assets/svg/cart.svg";
+
+  /// Assets for assetsSvgCategory
+  /// assets/svg/category.svg
+  static const String assetsSvgCategory = "assets/svg/category.svg";
+
   /// Assets for assetsSvgDokanLogo
   /// assets/svg/dokan_logo.svg
   static const String assetsSvgDokanLogo = "assets/svg/dokan_logo.svg";
@@ -36,6 +44,22 @@ class Assets {
   /// Assets for assetsSvgGoogle
   /// assets/svg/google.svg
   static const String assetsSvgGoogle = "assets/svg/google.svg";
+
+  /// Assets for assetsSvgHome
+  /// assets/svg/home.svg
+  static const String assetsSvgHome = "assets/svg/home.svg";
+
+  /// Assets for assetsSvgLock
+  /// assets/svg/lock.svg
+  static const String assetsSvgLock = "assets/svg/lock.svg";
+
+  /// Assets for assetsSvgLogout
+  /// assets/svg/logout.svg
+  static const String assetsSvgLogout = "assets/svg/logout.svg";
+
+  /// Assets for assetsSvgMail
+  /// assets/svg/mail.svg
+  static const String assetsSvgMail = "assets/svg/mail.svg";
 
   /// Assets for assetsSvgMenu
   /// assets/svg/menu.svg

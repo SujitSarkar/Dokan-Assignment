@@ -24,10 +24,10 @@ class Signupcreen extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 60.r,
                           backgroundColor: AppColors.cardColor,
-                          child: Icon(
-                            FeatherIcons.user,
-                            color: AppColors.hintColor,
-                            size: 36.sp,
+                          child: SvgPicture.asset(
+                            Assets.assetsSvgAccount,
+                            height: 50.sp,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -62,14 +62,14 @@ class Signupcreen extends StatelessWidget {
                     hintText: "Name",
                     textCapitalization: TextCapitalization.words,
                     required: true,
-                    prefixIcon: FeatherIcons.user,
+                    prefix: SvgPicture.asset(Assets.assetsSvgAccount),
                   ),
                   16.heightBox,
                   TextFormFieldWidget(
                     controller: controller.userNameController,
                     hintText: "Username",
                     required: true,
-                    prefixIcon: FeatherIcons.user,
+                    prefix: SvgPicture.asset(Assets.assetsSvgAccount),
                   ),
                   16.heightBox,
                   TextFormFieldWidget(
@@ -77,7 +77,7 @@ class Signupcreen extends StatelessWidget {
                     hintText: "Email",
                     textInputType: TextInputType.emailAddress,
                     required: true,
-                    prefixIcon: FeatherIcons.mail,
+                    prefix: SvgPicture.asset(Assets.assetsSvgMail),
                   ),
                   16.heightBox,
                   TextFormFieldWidget(
@@ -86,7 +86,7 @@ class Signupcreen extends StatelessWidget {
                     textInputType: TextInputType.visiblePassword,
                     required: true,
                     obscure: true,
-                    prefixIcon: FeatherIcons.lock,
+                    prefix: SvgPicture.asset(Assets.assetsSvgLock),
                   ),
                   16.heightBox,
                   TextFormFieldWidget(
@@ -95,7 +95,7 @@ class Signupcreen extends StatelessWidget {
                     textInputType: TextInputType.visiblePassword,
                     required: true,
                     obscure: true,
-                    prefixIcon: FeatherIcons.lock,
+                    prefix: SvgPicture.asset(Assets.assetsSvgLock),
                   ),
                   20.heightBox,
                   Obx(

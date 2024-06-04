@@ -29,9 +29,8 @@ class LoginScreen extends StatelessWidget {
                     TextFormFieldWidget(
                       controller: controller.emailController,
                       hintText: "Email",
-                      textInputType: TextInputType.emailAddress,
                       required: true,
-                      prefixIcon: FeatherIcons.mail,
+                      prefix: SvgPicture.asset(Assets.assetsSvgMail),
                     ),
                     const SizedBox(height: 16),
                     TextFormFieldWidget(
@@ -40,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                       textInputType: TextInputType.visiblePassword,
                       required: true,
                       obscure: true,
-                      prefixIcon: FeatherIcons.lock,
+                      prefix: SvgPicture.asset(Assets.assetsSvgLock),
                     ),
                     19.heightBox,
                     Align(

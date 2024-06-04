@@ -1,5 +1,3 @@
-import 'dart:convert';
-import '/features/auth/domain/model/login_model.dart';
 import '/shared/data/data_sources/local/get_local_storage.dart';
 import '../../../../core/constants/local_storage_key.dart';
 import '/core/router/app_router.dart';
@@ -26,8 +24,9 @@ class LoginController extends GetxController {
 
   Future<void> habdleLogin() async {
     isLoading(true);
-    final data = await LocalStorage.getData(key: LoacalStorageKey.loginKey);
-    if (data != null) {
+    final String? token =
+        await LocalStorage.getData(key: LoacalStorageKey.tokenKey);
+    if (token != null) {
       pushAndRemoveUntil(AppRouter.navBar);
     }
     isLoading(false);
@@ -52,8 +51,8 @@ class LoginController extends GetxController {
             email: emailController.text.trim(),
             password: passwordController.text)
         .then((result) async {
-      if (result != null) {
-        await saveloginResponseToLocal(loginModel: result);
+      if (result != null && result.token != null) {
+        await saveToken(token: result.token!);
         showToast('Successfully logged in');
         clearData();
         pushAndRemoveUntil(AppRouter.navBar);
@@ -62,9 +61,7 @@ class LoginController extends GetxController {
     isLoading(false);
   }
 
-  Future<void> saveloginResponseToLocal(
-      {required LoginModel loginModel}) async {
-    LocalStorage.saveData(
-        key: LoacalStorageKey.loginKey, data: jsonEncode(loginModel.toJson()));
+  Future<void> saveToken({required String token}) async {
+    await LocalStorage.saveData(key: LoacalStorageKey.tokenKey, data: token);
   }
 }

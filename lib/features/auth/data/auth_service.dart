@@ -58,7 +58,7 @@ class AuthService extends ApiClient implements AuthRepository {
   }
 
   @override
-  Future<bool> logout(BuildContext context) async {
+  Future<bool> logout() async {
     try {
       await LocalStorage.clearAll();
       return true;

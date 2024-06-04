@@ -10,15 +10,15 @@ class ImagePlaceholderWidget extends StatelessWidget {
     return ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         child: Ink(
-          width: width ?? 130,
+          width: width ?? 130.w,
           height: height ?? 140.h,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          child: const Icon(
-            FeatherIcons.image,
-            color: AppColors.hintColor,
-            size: 100,
+          child: Icon(
+            Icons.image,
+            color: AppColors.disableStartColor,
+            size: 130.sp,
           ),
         ));
   }
