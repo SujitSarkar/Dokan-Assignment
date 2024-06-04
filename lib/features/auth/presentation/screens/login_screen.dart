@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
                     40.heightBox,
                     TextFormFieldWidget(
                       controller: controller.emailController,
-                      hintText: "Email",
+                      hintText: "Email / Username",
                       required: true,
                       prefix: SvgPicture.asset(Assets.assetsSvgMail),
                     ),
