@@ -1,6 +1,5 @@
 import 'dart:convert';
-import 'package:dokan/shared/data/data_sources/local/get_local_storage.dart';
-
+import '/shared/data/data_sources/local/get_local_storage.dart';
 import '../domain/model/login_model.dart';
 import '/shared/data/data_sources/remote/api/api_endpoint_url.dart';
 import '/shared/data/data_sources/remote/api/remote_imports.dart';
