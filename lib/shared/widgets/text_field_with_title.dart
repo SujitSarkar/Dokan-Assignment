@@ -72,12 +72,12 @@ class _TextFormFieldWithTitleState extends State<TextFormFieldWithTitle> {
         TextFormField(
           validator: (value) {
             if (widget.required && value != null && value.isEmpty) {
-              return "${widget.labelText} can't be empty";
+              return "${widget.labelText} ${AppString.canNotEmpty}";
             } else if (widget.required &&
                 value != null &&
                 widget.textInputType == TextInputType.emailAddress &&
                 !value.isValidEmail) {
-              return "Invalid email address";
+              return AppString.invalidEmailAddress;
             } else {
               return null;
             }

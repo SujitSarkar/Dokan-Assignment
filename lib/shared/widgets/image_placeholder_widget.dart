@@ -1,9 +1,11 @@
 part of 'widget_imports.dart';
 
 class ImagePlaceholderWidget extends StatelessWidget {
-  const ImagePlaceholderWidget({super.key, this.height, this.width});
+  const ImagePlaceholderWidget(
+      {super.key, this.height, this.width, this.iconSize});
   final double? height;
   final double? width;
+  final double? iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class ImagePlaceholderWidget extends StatelessWidget {
           child: Icon(
             Icons.image,
             color: AppColors.disableStartColor,
-            size: 130.sp,
+            size: iconSize ?? 130.sp,
           ),
         ));
   }

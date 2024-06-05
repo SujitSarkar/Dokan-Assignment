@@ -17,11 +17,14 @@ class FilterItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              'Filter'.text.fontWeight(FontWeight.bold).size(18.sp).make(),
+              AppString.filter.text
+                  .fontWeight(FontWeight.bold)
+                  .size(18.sp)
+                  .make(),
               16.heightBox,
               Obx(
                 () => CheckBoxTile(
-                    title: 'Newest',
+                    title: AppString.newest,
                     value: homeController.newest.value,
                     onChange: (value) {
                       homeController.newest(value);
@@ -31,7 +34,7 @@ class FilterItemWidget extends StatelessWidget {
               ),
               Obx(
                 () => CheckBoxTile(
-                    title: 'Oldest',
+                    title: AppString.oldest,
                     value: homeController.oldest.value,
                     onChange: (value) {
                       homeController.oldest(value);
@@ -41,7 +44,7 @@ class FilterItemWidget extends StatelessWidget {
               ),
               Obx(
                 () => CheckBoxTile(
-                    title: 'Price Low > High',
+                    title: AppString.priceLowToHigh,
                     value: homeController.priceLowToHigh.value,
                     onChange: (value) {
                       homeController.priceLowToHigh(value);
@@ -51,7 +54,7 @@ class FilterItemWidget extends StatelessWidget {
               ),
               Obx(
                 () => CheckBoxTile(
-                    title: 'Price High > Low',
+                    title: AppString.priceHighToLow,
                     value: homeController.priceHighToLow.value,
                     onChange: (value) {
                       homeController.priceHighToLow(value);
@@ -61,7 +64,7 @@ class FilterItemWidget extends StatelessWidget {
               ),
               Obx(
                 () => CheckBoxTile(
-                    title: 'Best Selling',
+                    title: AppString.bestSelling,
                     value: homeController.bestSelling.value,
                     onChange: (value) {
                       homeController.bestSelling(value);
@@ -79,7 +82,7 @@ class FilterItemWidget extends StatelessWidget {
             Expanded(
               child: OutlineButton(
                 onTap: () => popScreen(),
-                buttonText: 'Cancel',
+                buttonText: AppString.cancel,
                 height: 61,
               ),
             ),
@@ -90,7 +93,7 @@ class FilterItemWidget extends StatelessWidget {
                   homeController.applyFilter();
                   popScreen();
                 },
-                buttonText: 'Apply',
+                buttonText: AppString.apply,
                 backgroundColor: AppColors.buttonColor,
                 height: 61,
               ),

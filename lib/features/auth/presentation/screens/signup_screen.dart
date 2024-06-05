@@ -59,7 +59,7 @@ class Signupcreen extends StatelessWidget {
                   52.heightBox,
                   TextFormFieldWidget(
                     controller: controller.nameController,
-                    hintText: "Name",
+                    hintText: AppString.name,
                     textCapitalization: TextCapitalization.words,
                     required: true,
                     prefix: SvgPicture.asset(Assets.assetsSvgAccount),
@@ -67,14 +67,14 @@ class Signupcreen extends StatelessWidget {
                   16.heightBox,
                   TextFormFieldWidget(
                     controller: controller.userNameController,
-                    hintText: "Username",
+                    hintText: AppString.username,
                     required: true,
                     prefix: SvgPicture.asset(Assets.assetsSvgAccount),
                   ),
                   16.heightBox,
                   TextFormFieldWidget(
                     controller: controller.emailController,
-                    hintText: "Email",
+                    hintText: AppString.email,
                     textInputType: TextInputType.emailAddress,
                     required: true,
                     prefix: SvgPicture.asset(Assets.assetsSvgMail),
@@ -82,7 +82,7 @@ class Signupcreen extends StatelessWidget {
                   16.heightBox,
                   TextFormFieldWidget(
                     controller: controller.passwordController,
-                    hintText: "Password",
+                    hintText: AppString.password,
                     textInputType: TextInputType.visiblePassword,
                     required: true,
                     obscure: true,
@@ -91,7 +91,7 @@ class Signupcreen extends StatelessWidget {
                   16.heightBox,
                   TextFormFieldWidget(
                     controller: controller.confirmPasswordController,
-                    hintText: "Confirm password",
+                    hintText: AppString.confirmPass,
                     textInputType: TextInputType.visiblePassword,
                     required: true,
                     obscure: true,
@@ -104,7 +104,7 @@ class Signupcreen extends StatelessWidget {
                         isLoading: controller.isLoading.value,
                         backgroundColor: AppColors.secondaryColor,
                         height: 61,
-                        buttonText: 'Sign Up'),
+                        buttonText: AppString.signup),
                   ),
                   40.heightBox,
                   Row(
@@ -135,9 +135,9 @@ class Signupcreen extends StatelessWidget {
                     text: TextSpan(
                       style: Theme.of(context).textTheme.bodyMedium,
                       children: [
-                        const TextSpan(text: 'Already have an account? '),
+                        const TextSpan(text: '${AppString.alreadyHaveAcc} '),
                         TextSpan(
-                          text: 'Login',
+                          text: AppString.login,
                           style: const TextStyle(
                               color: Colors.blue, fontWeight: FontWeight.w700),
                           recognizer: TapGestureRecognizer()

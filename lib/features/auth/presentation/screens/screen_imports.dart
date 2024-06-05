@@ -1,6 +1,7 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../../../core/constants/app_string.dart';
 import '/core/constants/app_assets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import '../../data/home_service.dart';
 import '../../domain/model/product_model.dart';
 
@@ -40,14 +39,14 @@ class HomeController extends GetxController {
     if (newest.value) {
       productList.sort((a, b) => b.dateCreated!.compareTo(a.dateCreated!));
       for (var e in productList) {
-        debugPrint(DateFormat('dd-MMM-yyyy').format(e.dateCreated!));
+        debugPrint('${e.dateCreated!}');
       }
     }
     //Oldest
     if (oldest.value) {
       productList.sort((a, b) => a.dateCreated!.compareTo(b.dateCreated!));
       for (var e in productList) {
-        debugPrint(DateFormat('dd-MMM-yyyy').format(e.dateCreated!));
+        debugPrint('${e.dateCreated!}');
       }
     }
     //Low to High

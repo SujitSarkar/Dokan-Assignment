@@ -17,8 +17,7 @@ class FilterCard extends StatelessWidget {
               width: 15.w,
               fit: BoxFit.cover,
             ),
-            'Filter'
-                .text
+            AppString.filter.text
                 .size(16.sp)
                 .color(AppColors.hintColor)
                 .make()
@@ -28,8 +27,7 @@ class FilterCard extends StatelessWidget {
               onTap: sortOnTap,
               child: Row(
                 children: [
-                  'Sort by'
-                      .text
+                  AppString.sortBy.text
                       .size(16.sp)
                       .color(AppColors.hintColor)
                       .make()

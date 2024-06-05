@@ -10,8 +10,7 @@ class HomeScreen extends StatelessWidget {
         builder: (homeController) {
           return Scaffold(
             appBar: AppBar(
-              title: 'Product List'
-                  .text
+              title: AppString.productList.text
                   .color(AppColors.screenTitleColor)
                   .fontWeight(FontWeight.bold)
                   .size(22.57.sp)
@@ -43,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                                         context: context,
                                         child: const FilterItemWidget());
                                   },
-                                ),
+                                ).paddingOnly(top: 10),
                                 Expanded(
                                   child: GridView.builder(
                                     padding: const EdgeInsets.all(16),
